@@ -1,11 +1,14 @@
 package com.devops
 
+import com.cloudbees.groovy.cps.NonCPS
+
 // 实现 Serializable 接口是为了确保当 pipeline 被 Jenkins挂起后能正确恢复
 class DingTalkUtils implements Serializable {
 
     String url = 'https://oapi.dingtalk.com'
         
     // 获取构建者uid，依赖build-user-vars-plugin
+    @NonCPS
     def getSubmitter() {
         wrap([$class: 'BuildUser']) {
             jobUserId = sh encoding: 'UTF-8', returnStdout: true, script: 'echo "${BUILD_USER_ID}"'
@@ -23,6 +26,7 @@ class DingTalkUtils implements Serializable {
         return res.content
     }
     
+    @NonCPS
     def getAccessToken(){
         return this.ApiUrl('/gettoken') 
     }
