@@ -27,5 +27,5 @@ def call(String lang) {
 }
 
 def createVersion() {
-  return new Date().format('yyyyMM') + "-${env.BUILD_NUMBER}"
+  return new Date().format('YYYYMMddHHmmss') + "-${env.BUILD_NUMBER}"
 }
