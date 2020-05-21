@@ -10,11 +10,11 @@ def call(String lang) {
           script {
             def util = new com.devops.Utils()
             def dtalk = new com.devops.DingTalkUtils()
-            def uid = dtalk.getSubmitter()
+            //def uid = dtalk.getSubmitter()
             def ac = dtalk.getAccessToken()
             def version = util.createVersion("${BUILD_NUMBER}")
             echo "${version}"
-            echo uid
+            //echo uid
             echo ac
             if (lang == 'go') {
               echo 'go build'
