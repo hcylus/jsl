@@ -1,5 +1,4 @@
 def call(String lang) {
-  if (lang == 'go') {
     pipeline {
       agent any
       environment {
@@ -9,40 +8,23 @@ def call(String lang) {
          stage ('build') {
             steps {
                 script {
-                    def util = new com.hcylus.Utils()
+                    def util = new com.devops.Utils()
                     def version = util.createVersion("${BUILD_NUMBER}")
                     echo "${version}"
-                    sayHello lang
+                    if (lang == 'go') {
+                      echo 'go build'
+                      sayHello lang
+                    } else if (lang == 'java') { 
+                      echo 'java build'
+                      sayHello lang 
+                    }  
                     echo "${_version}"
                 }  
             }
          }
        }
     } 
-  } else if (lang == 'java') {
-    pipeline {
-      agent any
-      environment {
-       _version = createVersion()
-      }
-       stages {
-         stage ('build') {
-            steps {
-              script {
-                    def util = new com.hcylus.Utils()
-                    def version = util.createVersion("${BUILD_NUMBER}")
-                    echo "${version}"
-                    sayHello lang
-                    echo "${_version}"
-                }  
-            }
-         }
-       }
-    } 
-  }
-  // 其他语言
 }
-
 
 def createVersion() {
     return new Date().format('yyyyMM') + "-${env.BUILD_NUMBER}"
