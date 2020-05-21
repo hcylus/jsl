@@ -43,6 +43,7 @@ def call(String lang) {
   // 其他语言
 }
 
+
 def createVersion() {
     return new Date().format('yyyyMM') + "-${env.BUILD_NUMBER}"
     
